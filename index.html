@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kedai Makan Kg.Kilirip</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+padding:20px;
+background:#111;
+color:white;
+padding-bottom:100px;
+}
+
+h1{
+text-align:center;
+color:#ffcc00;
+}
+
+input,select{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:none;
+margin-bottom:10px;
+font-size:16px;
+}
+
+.category-btn{
+padding:8px 15px;
+margin:5px;
+border-radius:20px;
+border:none;
+font-weight:bold;
+cursor:pointer;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:10px;
+}
+
+.item{
+background:#1c1c1c;
+padding:12px;
+border-radius:12px;
+text-align:center;
+border:1px solid #333;
+}
+
+.item img{
+width:100%;
+border-radius:10px;
+}
+
+.price{
+color:#ffcc00;
+font-weight:bold;
+margin-top:4px;
+}
+
+.counter{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:6px;
+}
+
+.counter button{
+width:40px;
+height:40px;
+border:none;
+border-radius:8px;
+background:#ffcc00;
+font-size:18px;
+font-weight:bold;
+}
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.box{
+background:#1c1c1c;
+padding:20px;
+border-radius:12px;
+width:90%;
+max-width:400px;
+}
+
+.cart-bar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:60px;
+background:#25D366;
+color:white;
+display:none;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+font-size:18px;
+font-weight:bold;
+z-index:999;
+}
+
+button.order{
+width:100%;
+padding:15px;
+background:#25D366;
+border:none;
+border-radius:25px;
+font-size:18px;
+margin-top:15px;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>KEDAI MAKAN KG.KILIRIP</h1>
+
+<input id="nama" placeholder="Nama anda">
+<input id="alamat" placeholder="Alamat delivery">
+
+<select id="area" onchange="updateDelivery()">
+
+<option value="0">Pilih kawasan delivery</option>
+<option value="3">Kg Punson Kilirip - RM3</option>
+<option value="4">Kg Tampasak - RM4</option>
+<option value="5">Kg Sulim/Labak - RM5</option>
+<option value="5">Kg Mook - RM5</option>
+<option value="5">Kg Langkuas - RM5</option>
+<option value="7">Other - RM7</option>
+
+</select>
+
+<h3>Kategori</h3>
+
+<button class="category-btn" onclick="showCategory('makanan')">🍜 Makanan</button>
+<button class="category-btn" onclick="showCategory('minuman')">🥤 Minuman</button>
+
+<!-- MAKANAN -->
+
+<div id="makanan" class="grid category">
+
+<div class="item">
+<img src="Mee sup Chuchap.JPG">
+<div>Mee Sup / Nasi Sup Chuchap</div>
+
+<select onchange="selectItem(this)">
+<option value="">Pilih jenis</option>
+<option value="Mee Sup Chuchap|11">Mee Sup Chuchap RM11</option>
+<option value="Nasi Sup Chuchap|11">Nasi Sup Chuchap RM11</option>
+<option value="Mee Sup Chuchap Kaliau|16">Mee Sup Chuchap Kaliau RM16</option>
+<option value="Nasi Sup Chuchap Kaliau|16">Nasi Sup Chuchap Kaliau RM16</option>
+</select>
+
+<div class="counter">
+<button onclick="minus(this,11)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,11)">+</button>
+</div>
+</div>
+
+
+<div class="item">
+<img src="Bakuteh.JPG">
+<div>Bakuteh</div>
+
+<select onchange="selectItem(this)">
+<option value="">Pilih jenis</option>
+<option value="Nasi Bakuteh|13">Nasi Bakuteh RM13</option>
+<option value="Nasi Bakuteh Kaliau|16">Nasi Bakuteh Kaliau RM16</option>
+<option value="Bakuteh Small|11">Bakuteh Small RM11</option>
+<option value="Bakuteh Medium|22">Bakuteh Medium RM22</option>
+<option value="Bakuteh Large|33">Bakuteh Large RM33</option>
+</select>
+
+<div class="counter">
+<button onclick="minus(this,11)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,11)">+</button>
+</div>
+</div>
+
+
+<div class="item">
+<img src="Kolomen special.JPG">
+<div>Kolomen</div>
+
+<select onchange="selectItem(this)">
+<option value="">Pilih jenis</option>
+<option value="Kolomen Porkbelly|11">Kolomen Porkbelly RM11</option>
+<option value="Kolomen Daging Cincang|8">Kolomen Daging Cincang RM8</option>
+<option value="Kolomen Telinga Babi|11">Kolomen Telinga Babi RM11</option>
+<option value="Kolomen Special|16">Kolomen Special RM16</option>
+</select>
+
+<div class="counter">
+<button onclick="minus(this,11)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,11)">+</button>
+</div>
+</div>
+
+</div>
+
+
+<!-- MINUMAN -->
+
+<div id="minuman" class="grid category" style="display:none">
+
+<div class="item">
+<div>100Plus</div>
+<div class="price">RM3</div>
+<div class="counter">
+<button onclick="minus(this,3)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,3)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Cola</div>
+<div class="price">RM3</div>
+<div class="counter">
+<button onclick="minus(this,3)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,3)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Susu Kacang Kotak</div>
+<div class="price">RM2</div>
+<div class="counter">
+<button onclick="minus(this,2)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,2)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Air Bunga Kotak</div>
+<div class="price">RM2</div>
+<div class="counter">
+<button onclick="minus(this,2)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,2)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Nescafe Ping</div>
+<div class="price">RM3.50</div>
+<div class="counter">
+<button onclick="minus(this,3.5)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,3.5)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Nescafe Panas</div>
+<div class="price">RM3</div>
+<div class="counter">
+<button onclick="minus(this,3)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,3)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Milo Ping</div>
+<div class="price">RM3.50</div>
+<div class="counter">
+<button onclick="minus(this,3.5)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,3.5)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Milo Panas</div>
+<div class="price">RM3</div>
+<div class="counter">
+<button onclick="minus(this,3)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,3)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>CEO Ping</div>
+<div class="price">RM5</div>
+<div class="counter">
+<button onclick="minus(this,5)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,5)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>Chinese Tea</div>
+<div class="price">RM1</div>
+<div class="counter">
+<button onclick="minus(this,1)">-</button>
+<span class="qty">0</span>
+<button onclick="plus(this,1)">+</button>
+</div>
+</div>
+
+</div>
+
+
+<div id="cartBar" class="cart-bar" onclick="preview()">
+<div>
+🛒 <span id="cartItems">0 Item</span> |
+<span id="cartTotal">RM0</span>
+</div>
+<div>
+View Order →
+</div>
+</div>
+
+
+<div class="popup" id="popup">
+<div class="box">
+
+<h3>Confirm Order</h3>
+
+<div id="invoice"></div>
+
+<br>
+
+<img src="qr-payment.jpg" width="200">
+
+<p>Scan QR untuk bayar dahulu</p>
+
+<button class="order" onclick="sendWA()">Send WhatsApp</button>
+
+</div>
+</div>
+
+
+<script>
+
+let jumlah=0
+let harga=0
+let delivery=0
+
+function plus(btn,price){
+
+let item=btn.closest(".item")
+let q=item.querySelector(".qty")
+
+let v=parseInt(q.innerText)
+v++
+
+q.innerText=v
+
+jumlah++
+harga+=price
+
+update()
+
+}
+
+function minus(btn,price){
+
+let item=btn.closest(".item")
+let q=item.querySelector(".qty")
+
+let v=parseInt(q.innerText)
+
+if(v>0){
+
+v--
+q.innerText=v
+
+jumlah--
+harga-=price
+
+update()
+
+}
+
+}
+
+function selectItem(sel){
+
+let item=sel.closest(".item")
+
+let btnPlus=item.querySelector("button:last-child")
+let btnMinus=item.querySelector("button:first-child")
+
+if(sel.value!=""){
+
+let data=sel.value.split("|")
+
+let price=parseFloat(data[1])
+
+btnPlus.setAttribute("onclick","plus(this,"+price+")")
+btnMinus.setAttribute("onclick","minus(this,"+price+")")
+
+}
+
+}
+
+function update(){
+
+let total=harga+delivery
+
+let cart=document.getElementById("cartBar")
+
+if(jumlah>0){
+
+cart.style.display="flex"
+
+document.getElementById("cartItems").innerText=jumlah+" Item"
+document.getElementById("cartTotal").innerText="RM"+total.toFixed(2)
+
+}else{
+
+cart.style.display="none"
+
+}
+
+}
+
+function updateDelivery(){
+
+delivery=parseFloat(document.getElementById("area").value)
+
+update()
+
+}
+
+function showCategory(cat){
+
+document.querySelectorAll(".category").forEach(e=>{
+e.style.display="none"
+})
+
+document.getElementById(cat).style.display="grid"
+
+}
+
+function preview(){
+
+let list=""
+
+document.querySelectorAll(".item").forEach(item=>{
+
+let qty=parseInt(item.querySelector(".qty").innerText)
+
+if(qty>0){
+
+let name=item.querySelector("div").innerText
+
+list+="• "+name+" x"+qty+"<br>"
+
+}
+
+})
+
+let total=harga+delivery
+
+document.getElementById("invoice").innerHTML=
+
+"Nama: "+nama.value+"<br>"+
+"Alamat: "+alamat.value+"<br><br>"+
+"<b>Order:</b><br>"+list+"<br>"+
+"Subtotal: RM"+harga.toFixed(2)+"<br>"+
+"Delivery: RM"+delivery.toFixed(2)+"<br>"+
+"<b>Total: RM"+total.toFixed(2)+"</b><br><br>"+
+"<i>*Sila share location penghantaran</i>"
+
+popup.style.display="flex"
+
+}
+
+function sendWA() {
+  
+  let list = ""
+  
+  document.querySelectorAll(".item").forEach(item => {
+    
+    let qty = parseInt(item.querySelector(".qty").innerText)
+    
+    if (qty > 0) {
+      
+      let name = item.querySelector("div").innerText.trim()
+      
+      list += "- " + name + " x" + qty + "\n"
+      
+    }
+    
+  })
+  
+  let total = harga + delivery
+  
+  let msg =
+    
+    "KEDAI MAKAN KG.KILIRIP\n\n" +
+    "Nama: " + nama.value + "\n" +
+    "Alamat: " + alamat.value + "\n\n" +
+    "Order:\n" + list + "\n" +
+    "Subtotal: RM" + harga.toFixed(2) + "\n" +
+    "Delivery: RM" + delivery.toFixed(2) + "\n" +
+    "Total: RM" + total.toFixed(2) + "\n\n" +
+    "Payment: QR Transfer/Cash\n" +
+    "*Sila share location penghantaran"
+  
+  window.location.href = "https://wa.me/601113050760?text=" + encodeURIComponent(msg)
+  
+}
+
+</script>
+
+</body>
+</html>
