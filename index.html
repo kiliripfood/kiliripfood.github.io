@@ -356,6 +356,12 @@ View Order →
 
 <button class="order" onclick="sendWA()">Send WhatsApp</button>
 
+<br><br>
+
+<button class="order" onclick="closePopup()" style="background:#555;">
+Cancel / Back
+</button>
+  
 </div>
 </div>
 
@@ -533,6 +539,10 @@ function sendWA() {
   
 }
 
+function closePopup(){
+document.getElementById("popup").style.display="none"
+}
+  
 </script>
 
 </body>
