@@ -478,10 +478,12 @@ document.getElementById(cat).style.display="grid"
 
 function preview(){
 
-bookingId = "KMK" + Math.floor(Math.random() * 10000)
+if(bookingId == ""){
+  bookingId = "KMK" + Math.floor(Math.random() * 10000)
 
-let now = new Date()
-masaOrder = now.toLocaleString("ms-MY")
+  let now = new Date()
+  masaOrder = now.toLocaleString("ms-MY")
+}
 
 let list=""
 
@@ -506,8 +508,9 @@ document.getElementById("invoice").innerHTML=
 "Booking ID: " + bookingId + "<br>" +
 "Masa: " + masaOrder + "<br><br>" +
 
-"Nama: "+nama.value+"<br>"+
-"Alamat: "+alamat.value+"<br><br>"+
+"Nama: "+document.getElementById("nama").value+"<br>"+
+"Alamat: "+document.getElementById("alamat").value+"<br><br>"+
+
 "<b>Order:</b><br>"+list+"<br>"+
 "Subtotal: RM"+harga.toFixed(2)+"<br>"+
 "Delivery: RM"+delivery.toFixed(2)+"<br>"+
@@ -520,40 +523,47 @@ document.getElementById("cartBar").style.display="none"
 }
 
 function sendWA() {
-  
-  let list = ""
-  
-  document.querySelectorAll(".item").forEach(item => {
-    
-    let qty = parseInt(item.querySelector(".qty").innerText)
-    
-    if (qty > 0) {
-      
-      let name = item.querySelector("div").innerText.trim()
-      
-      list += "- " + name + " x" + qty + "\n"
-      
-    }
-    
-  })
-  
-  let total = harga + delivery
-  
-  let msg =
+
+if(bookingId == ""){
+  bookingId = "KMK" + Math.floor(Math.random() * 10000)
+
+  let now = new Date()
+  masaOrder = now.toLocaleString("ms-MY")
+}
+
+let list = ""
+
+document.querySelectorAll(".item").forEach(item => {
+
+let qty = parseInt(item.querySelector(".qty").innerText)
+
+if (qty > 0) {
+
+let name = item.querySelector("div").innerText.trim()
+
+list += "- " + name + " x" + qty + "\n"
+
+}
+
+})
+
+let total = harga + delivery
+
+let msg =
   "KEDAI MAKAN KG.KILIRIP\n\n" +
   "Booking ID: " + bookingId + "\n" +
   "Masa: " + masaOrder + "\n\n" +
-  "Nama: " + nama.value + "\n" +
-    "Alamat: " + alamat.value + "\n\n" +
-    "Order:\n" + list + "\n" +
-    "Subtotal: RM" + harga.toFixed(2) + "\n" +
-    "Delivery: RM" + delivery.toFixed(2) + "\n" +
-    "Total: RM" + total.toFixed(2) + "\n\n" +
-    "Payment: QR Transfer/Cash\n" +
-    "*Sila hantar lokasi penghantaran"
-  
-  window.location.href = "https://wa.me/601113050760?text=" + encodeURIComponent(msg)
-  
+  "Nama: " + document.getElementById("nama").value + "\n" +
+  "Alamat: " + document.getElementById("alamat").value + "\n\n" +
+  "Order:\n" + list + "\n" +
+  "Subtotal: RM" + harga.toFixed(2) + "\n" +
+  "Delivery: RM" + delivery.toFixed(2) + "\n" +
+  "Total: RM" + total.toFixed(2) + "\n\n" +
+  "Payment: QR Transfer/Cash\n" +
+  "*Sila hantar lokasi penghantaran"
+
+window.location.href = "https://wa.me/601113050760?text=" + encodeURIComponent(msg)
+
 }
 
 function closePopup(){
