@@ -376,6 +376,9 @@ let jumlah=0
 let harga=0
 let delivery=0
 
+let bookingId = ""
+let masaOrder = ""
+
 function plus(btn,price){
 
 let item=btn.closest(".item")
@@ -475,6 +478,11 @@ document.getElementById(cat).style.display="grid"
 
 function preview(){
 
+bookingId = "KMK" + Math.floor(Math.random() * 10000)
+
+let now = new Date()
+masaOrder = now.toLocaleString("ms-MY")
+
 let list=""
 
 document.querySelectorAll(".item").forEach(item=>{
@@ -495,13 +503,16 @@ let total=harga+delivery
 
 document.getElementById("invoice").innerHTML=
 
+"Booking ID: " + bookingId + "<br>" +
+"Masa: " + masaOrder + "<br><br>" +
+
 "Nama: "+nama.value+"<br>"+
 "Alamat: "+alamat.value+"<br><br>"+
 "<b>Order:</b><br>"+list+"<br>"+
 "Subtotal: RM"+harga.toFixed(2)+"<br>"+
 "Delivery: RM"+delivery.toFixed(2)+"<br>"+
 "<b>Total: RM"+total.toFixed(2)+"</b><br><br>"+
-"<i>*Sila share location penghantaran</i>"
+"<i>*Sila hantar lokasi penghantaran</i>"
 
 popup.style.display="flex"
 document.getElementById("cartBar").style.display="none"
@@ -529,16 +540,17 @@ function sendWA() {
   let total = harga + delivery
   
   let msg =
-    
-    "KEDAI MAKAN KG.KILIRIP\n\n" +
-    "Nama: " + nama.value + "\n" +
+  "KEDAI MAKAN KG.KILIRIP\n\n" +
+  "Booking ID: " + bookingId + "\n" +
+  "Masa: " + masaOrder + "\n\n" +
+  "Nama: " + nama.value + "\n" +
     "Alamat: " + alamat.value + "\n\n" +
     "Order:\n" + list + "\n" +
     "Subtotal: RM" + harga.toFixed(2) + "\n" +
     "Delivery: RM" + delivery.toFixed(2) + "\n" +
     "Total: RM" + total.toFixed(2) + "\n\n" +
     "Payment: QR Transfer/Cash\n" +
-    "*Sila share location penghantaran"
+    "*Sila hantar lokasi penghantaran"
   
   window.location.href = "https://wa.me/601113050760?text=" + encodeURIComponent(msg)
   
